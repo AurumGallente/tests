@@ -1,0 +1,31 @@
+<?php echo $this->doctype('XHTML1_STRICT');?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<?php echo $this->headMeta();?>	
+		<?php echo $this->headTitle();?>
+                <?php echo $this->headLink()->prependStylesheet($this->baseUrl().'/css/bootstrap.css', 'screen') ?>
+                <?php echo $this->headScript()->prependFile($this->baseUrl().'/js/bootstrap.js') ?>
+
+	</head>
+	<body>
+                <?php if(isset($this->message)) :?>
+                    <div class="notification">
+
+                    <?php echo $this->message ;?>
+
+                    </div>    
+                <?php endif;?>            
+		<?php echo $this->layout()->content;?>
+		<?php echo $this->headLink();?>	
+	</body>	
+    <link rel="stylesheet" type="text/css" href="/datepicker/jquery.datetimepicker.css"/ >
+    <script src="/datepicker/jquery.js"></script>
+    <script src="/datepicker/jquery.datetimepicker.js"></script>
+    <script>
+       $('#datetimepicker').datetimepicker({
+            format:'Y-m-d H:i:s',
+            //inline:true,
+            lang:'ru'
+});
+    </script>   
+</html>
