@@ -8,8 +8,14 @@
 
 	</head>
 	<body>
+            <div class="well">
+                <a href="/users">Регистрация</a>
+                <a href="/users/userlist">Список пользователей</a>
+                <a href="/conference/new">Новая конференция</a>
+                
+            </div>
                 <?php if(isset($this->message)) :?>
-                    <div class="notification">
+                    <div class="text-warning">
 
                     <?php echo $this->message ;?>
 

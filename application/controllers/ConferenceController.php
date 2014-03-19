@@ -37,6 +37,9 @@ class ConferenceController extends Zend_Controller_Action
                    $this->_helper->flashMessenger->addMessage('один из участников будт занят в это время');
                    $this->redirect('/conference/new');
                 }
+                $conf->save($data);
+                $this->_helper->flashMessenger->addMessage('конференция создана');
+                $this->redirect('/conference/new');
             }
         }
     }

@@ -30,7 +30,7 @@ class UsersController extends Zend_Controller_Action
     public function deleteuserAction(){
         
         $user = new Application_Model_User();
-        $id = $this->_getParam('id');
+        $id = $this->_getParam('id')*1;
         $user->delete($id);
         $this->_helper->flashMessenger->addMessage('пользователь удален');
         $this->redirect('/');
@@ -40,7 +40,20 @@ class UsersController extends Zend_Controller_Action
         
         $user = new Application_Model_User();
         $users = $user->userlist();
+        $paginator = new Zend_Paginator($users); 
+        $paginator->setItemCountPerPage(5)->setPageRange(5)->setCurrentPageNumber($this->getParam('page', 1));
         $this->view->users = $users;
+        $this->view->paginator = $paginator;
+        $this->view->userlist = $users;
+    }
+    public function editAction(){
+        $id = $this->_getParam('id')*1;
+        $this->view->id = $id;
+        $form = new Application_Form_UserForm();
+        $users = new Application_Model_User();
+        $user = $users->getById($id);
+        $form->populate($user);
+        $this->view->form = $form;
     }
     
 }

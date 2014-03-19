@@ -1,15 +1,66 @@
+<style>
+    td, th {
+        border-width: 1px;
+        border-style: solid;
+    }
+</style>
 <table>
+    <thead>
+      <th>Имя</th>
+      <th>Фамилия</th>
+      <th>количество созданных конференций</th>
+      <th>количество участий</th>
+      <th>последняя дата участия</th>
+      <th>первая дата участия</th>
+      <th>Всего конференций</th>
+      <th></th>
+      <th></th>
+    </thead>
     <tbody>
 <?php 
-if($this->users){
-    foreach ($this->users as $user) {
+$url = $this->BaseUrl();
+echo $this->paginationControl($this->paginator, 'Sliding', 'pagination.phtml');
+if($this->paginator){
+    foreach ($this->paginator as $user) {
         echo '<tr>';
-        echo '<td>'.$user->name.'</td>';
-        echo '<td>'.$user->lastname.'</td>';
-        echo '<td>'.$user->usercount.'</td>';
-        echo '<td>'.$user->participantcount.'</td>';        
+        echo '<td>'.$user['name'].'</td>';
+        echo '<td>'.$user['lastname'].'</td>';
+        echo '<td>'.$user['usercount'].'</td>';
+        echo '<td>'.$user['participantcount'].'</td>'; 
+        echo '<td>';
+        $date = max($user['max_u_date'], $user['max_p_date']);
+        if($date != NULL){
+            echo date('d-m-Y H:i', $date);
+        }
+        echo '</td>';
+        echo '<td>';
+        $date1 = ($user['min_u_date'] == NULL) ? 0 : $user['min_u_date'];
+        $date2 = ($user['min_p_date'] == NULL) ? 0 : $user['min_p_date']; 
+        if(($date1!=0) AND ($date2!=0)){
+            $date = date('d-m-Y H:i', min($date1, $date2));
+        }
+        if($date1 == 0){
+            $date = $date2;
+        }
+        if($date2 != 0){
+            echo date('d-m-Y H:i', $date2);
+        }
+        echo '</td>';
+        echo '<td>';
+        echo $user['usercount']+$user ['participantcount'];
+        echo '</td>';        
+        echo '<td>';
+        ?>
+        <a href="<?php echo $this->baseUrl().'/users/edit/id/'.$user['u_id'] ?>">изменить</a>
+        <?php
+        echo '</td>';
+        echo '<td>';
+        ?>
+        <a href="<?php echo $this->baseUrl().'/users/deleteuser/id/'.$user['u_id'] ?>">удалить</a>
+        <?php
+        echo '</td>';
         echo '</tr>';
-        //var_dump($user->toArray());
+
     }
     
 }

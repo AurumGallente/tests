@@ -15,6 +15,9 @@ class Application_Model_Conference extends Application_Model_Model {
             return true;
         }
     }
+    public function save($data){
+ 	$this->getDbTable()->insert($data);       
+    }
     
 
 }

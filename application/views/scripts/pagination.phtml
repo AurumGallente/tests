@@ -1,0 +1,16 @@
+<div >
+    <ul class="pagination">
+        <?php
+        echo '<li><a href="'.$this->url(array('page'=>$this->first)).'">первая</a><li>';
+        foreach ($this->pagesInRange as $page){
+            if($this->current != $page){
+                echo '<li><a href="'.$this->url(array('page'=>$page)).'"> '.$page.' </a></li>';
+            }
+            else{
+                echo '<li><a href="#" style="backgroundL #919191">'.$page.'</a></li>';
+            }
+        }
+        echo '<li><a href="'.$this->url(array('page'=>$this->last)).'">последняя</a></li>';
+        ?>
+    </ul>
+</div>
